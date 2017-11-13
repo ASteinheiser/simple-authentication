@@ -1,0 +1,23 @@
+{
+  "name": "simple-authentication",
+  "version": "1.0.0",
+  "description": "A simple user authentication application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASteinheiser/simple-authentication.git"
+  },
+  "keywords": [
+    "authentication",
+    "express"
+  ],
+  "author": "ASteinheiser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ASteinheiser/simple-authentication/issues"
+  },
+  "homepage": "https://github.com/ASteinheiser/simple-authentication#readme"
+}
