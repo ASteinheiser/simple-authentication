@@ -60,8 +60,23 @@ router.delete('/user', function (req, res, next) {
 })
 
 // Update the user
-// router.post('/user', function (req, res, next) {
-//   return res.status(201).send('POST user')
-// })
+router.post('/user', function (req, res, next) {
+  if (req.body.token) {
+    User.findById(req.body.token)
+      .exec(function (error, user) {
+        if (error) return next(error)
+        else if (!user) return res.status(401).send({ error: 'User not found.' })
+        else {
+          if (req.body.newEmail) user.email = req.body.newEmail
+          if (req.body.newPassword) user.password = req.body.newPassword
+          user.save(function (err, updatedUser) {
+            if (error) return next(error)
+            return res.status(200).send({user: {id: updatedUser.id, email: updatedUser.email}})
+          })
+        }
+      })
+  }
+  else return res.status(400).send({error: 'Request expects: { token: string }'})
+})
 
 module.exports = router

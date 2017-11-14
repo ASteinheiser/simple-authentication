@@ -26,8 +26,9 @@ curl -X POST -d '{"email":"example@email.com", "password":"asdf"}' --header "Con
 curl -X GET -d '{"token": "some-token"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
 ```
 #### Update user (Returns the user)
+*Optional: newEmail, newPassword*
 ```
-curl -X POST -d '{"token": "some-token", "newPassword": "new-password"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
+curl -X POST -d '{"token": "some-token", "newEmail": "new@email.com", "newPassword": "new-password"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
 ```
 #### Delete user (Returns nothing)
 ```
