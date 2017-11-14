@@ -29,7 +29,7 @@ curl -X GET -d '{"token": "some-token"}' --header "Content-Type: application/jso
 ```
 curl -X POST -d '{"token": "some-token", "newPassword": "new-password"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
 ```
-#### Delete user (Returns nothing(or error))
+#### Delete user (Returns nothing)
 ```
 curl -X DELETE -d '{"token":"some-token"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
 ```

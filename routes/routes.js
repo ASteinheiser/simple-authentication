@@ -23,7 +23,7 @@ router.post('/auth', function (req, res, next) {
   } else if (req.body.email && req.body.password) {
     User.authenticate(req.body.email, req.body.password, function (error, user) {
 
-      if (error || !user) return next(new Error('Wrong email or password'))
+      if (error || !user) return res.status(401).send({ error: 'Invalid Email or Password.' })
       else {
         req.session.userId = user._id
         return res.status(200).send({token: req.session.userId})
@@ -39,6 +39,7 @@ router.get('/user', function (req, res, next) {
     User.findById(req.body.token)
       .exec(function (error, user) {
         if (error) return next(error)
+        else if (!user) return res.status(401).send({ error: 'User not found.' })
         else return res.status(200).send({ user: { token: user._id, email: user.email } })
       })
   }
@@ -46,9 +47,17 @@ router.get('/user', function (req, res, next) {
 })
 
 // Delete the user
-// router.delete('/user', function (req, res, next) {
-//   return res.status(204).send('DELETE user')
-// })
+router.delete('/user', function (req, res, next) {
+  if (req.body.token) {
+    User.findByIdAndRemove(req.body.token)
+      .exec(function (error, user) {
+        if (error) return next(error)
+        else if (!user) return res.status(401).send({ error: 'User not found.' })
+        else return res.status(204).send('User Deleted.')
+      })
+  }
+  else return res.status(400).send({error: 'Request expects: { token: string }'})
+})
 
 // Update the user
 // router.post('/user', function (req, res, next) {
