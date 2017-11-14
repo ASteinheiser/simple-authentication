@@ -39,20 +39,20 @@ router.get('/user', function (req, res, next) {
     User.findById(req.body.token)
       .exec(function (error, user) {
         if (error) return next(error)
-        else return res.status(200).send({ email: user.email })
+        else return res.status(200).send({ user: { token: user._id, email: user.email } })
       })
   }
   else return res.status(400).send({error: 'Request expects: { token: string }'})
 })
 
-// Update the user
-// router.post('/user', function (req, res, next) {
-//   return res.status(201).send('POST user')
-// })
-
 // Delete the user
 // router.delete('/user', function (req, res, next) {
 //   return res.status(204).send('DELETE user')
+// })
+
+// Update the user
+// router.post('/user', function (req, res, next) {
+//   return res.status(201).send('POST user')
 // })
 
 module.exports = router
