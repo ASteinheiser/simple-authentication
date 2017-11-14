@@ -24,6 +24,19 @@ UserModel.pre('save', function (next) {
   })
 })
 
+UserModel.statics.authenticate = function (email, password, callback) {
+  User.findOne({ email: email })
+    .exec(function (err, user) {
+      if (err) return callback(err)
+      else if (!user) return callback(new Error('User not found'))
+
+      bcrypt.compare(password, user.password, function (err, result) {
+        if (result === true) return callback(null, user)
+        else return callback()
+      })
+    })
+}
+
 var User = mongoose.model('User', UserModel)
 
 module.exports = User

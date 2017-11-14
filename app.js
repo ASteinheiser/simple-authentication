@@ -1,8 +1,10 @@
 var bodyParser = require('body-parser')
 var express = require('express')
+var session = require('express-session')
 var mongoose = require('mongoose')
 
 var app = express()
+app.use(session({ secret: 'super-secret', resave: true, saveUninitialized: false }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
