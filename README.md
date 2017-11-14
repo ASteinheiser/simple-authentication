@@ -2,30 +2,34 @@
 A simple authentication app made with Express & Node.js
 
 ## Install & Run
-In one tab, run your MongoDB instance:
+### In one tab, run your MongoDB instance:
 ```
 brew install mongodb
 mongod
 ```
-In another tab, run your server:
+### In another tab, run your server:
 ```
 npm install
 npm start
 ```
-In a third tab, test the endpoints:
+### In a third tab, test the endpoints:
+#### Register user (Returns an auth token)
 ```
-// Register
 curl -X POST -d '{"newEmail":"example@email.com", "password":"asdf"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/auth
-
-// Login
+```
+#### Login user (Returns an auth token)
+```
 curl -X POST -d '{"email":"example@email.com", "password":"asdf"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/auth
-
-// Get user
-curl -X GET localhost:3000/user
-
-// Update user
-curl -X POST -d '{"oldPassword":"asdf", "newPassword":"ghjk"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
-
-// Delete user
-curl -X DELETE -d '{"email":"example@email.com"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
+```
+#### Get user (Returns user.email)
+```
+curl -X GET -d '{"token": "some-token"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
+```
+#### Update user (Returns success or error)
+```
+curl -X POST -d '{"token": "some-token", "newPassword": "new-password"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
+```
+#### Delete user (Returns nothing or error)
+```
+curl -X DELETE -d '{"token":"some-token"}' --header "Content-Type: application/json" --header "Accept: application/json" localhost:3000/user
 ```
